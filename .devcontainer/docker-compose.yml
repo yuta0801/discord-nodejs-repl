@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  app:
+    build: .
+
+    volumes:
+      - ..:/workspace:cached
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+
+    cap_add:
+      - SYS_ADMIN
+    security_opt:
+      - seccomp:unconfined
+
+    command: /bin/sh -c "while sleep 1000; do :; done"
