@@ -10,7 +10,7 @@ export const handler = async (message: Message) => {
 
   if (!repls.has(message.channel.id)) {
     const repl = await new Repl().start()
-    repl.onData(data => message.channel.send(data))
+    repl.onData(data => message.channel.send(data, { split: true }))
     repl.onExit(() => repls.delete(message.channel.id))
     repls.set(message.channel.id, repl)
   }
