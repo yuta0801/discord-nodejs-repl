@@ -18,7 +18,7 @@ export class Repl {
     ].join(' ')
     const isolate = command => `isolate ${options} --run -- ${command}`
     const command = 'cat | ' + isolate('/usr/local/bin/node -i')
-    // console.log('command:', command)
+    console.log('command:', command)
     this.node = spawn(command, { shell: true })
     this.node.stdout.setEncoding('utf8')
     this.node.stderr.setEncoding('utf8')
@@ -33,7 +33,7 @@ export class Repl {
   }
 
   exec(code: string) {
-    // console.log('input:', code)
+    console.log('input:', code)
     this.node.stdin.write(code + '\n')
   }
 
