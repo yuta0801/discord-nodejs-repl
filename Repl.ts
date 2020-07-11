@@ -4,7 +4,7 @@ import { once } from 'events'
 
 export class Repl {
   box = String(Date.now() % 1000)
-  node: ChildProcessWithoutNullStreams
+  node: ChildProcessWithoutNullStreams = null!
 
   constructor(box?: string) {
     if (box) this.box = box.slice(-3)
@@ -20,7 +20,7 @@ export class Repl {
       '-b', this.box, '-p',
       '--env=NODE_REPL_HISTORY=" "'
     ].join(' ')
-    const isolate = command => `isolate ${options} --run -- ${command}`
+    const isolate = (cmd: string) => `isolate ${options} --run -- ${cmd}`
     const command = 'cat | ' + isolate('/usr/local/bin/node -i')
     console.log('command:', command)
     this.node = spawn(command, { shell: true })

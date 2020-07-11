@@ -3,7 +3,7 @@ import { handler } from './manager'
 const client = new Client()
 
 client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`)
+  console.log(`Logged in as ${client.user?.tag}!`)
 })
 
 client.on('message', message => {

@@ -6,7 +6,7 @@ const repls = new Map<Snowflake, Repl>()
 export const handler = async (message: Message) => {
   if (message.author.bot) return
   if (message.channel.type !== 'text') return
-  if (!message.channel.topic.includes('[nodejs-repl]')) return
+  if (!message.channel.topic?.includes('[nodejs-repl]')) return
   if (message.content.startsWith('//')) return
 
   const id = message.channel.id
@@ -18,5 +18,5 @@ export const handler = async (message: Message) => {
     repls.set(id, repl)
   }
 
-  repls.get(id).exec(message.content)
+  repls.get(id)?.exec(message.content)
 }
