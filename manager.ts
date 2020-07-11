@@ -13,7 +13,7 @@ export const handler = async (message: Message) => {
 
   if (!repls.has(id)) {
     const repl = await new Repl(id).start()
-    repl.onData(data => message.channel.send(data, { split: true }))
+    repl.onData(data => message.channel.send(data, { split: { char: '' } }))
     repl.onExit(() => repls.delete(id))
     repls.set(id, repl)
   }
