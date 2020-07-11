@@ -2,6 +2,8 @@ import { promisify } from 'util'
 import { execFile, spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { once } from 'events'
 
+const REPL = `require('repl').start('')`
+
 export class Repl {
   box = String(Date.now() % 1000)
   node: ChildProcessWithoutNullStreams = null!
@@ -21,7 +23,7 @@ export class Repl {
       '--env=NODE_REPL_HISTORY=" "'
     ].join(' ')
     const isolate = (cmd: string) => `isolate ${options} --run -- ${cmd}`
-    const command = 'cat | ' + isolate('/usr/local/bin/node -i')
+    const command = 'cat | ' + isolate(`/usr/local/bin/node -e "${REPL}"`)
     console.log('command:', command)
     this.node = spawn(command, { shell: true })
     this.node.stdout.setEncoding('utf8')
