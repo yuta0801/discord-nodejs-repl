@@ -9,12 +9,14 @@ export const handler = async (message: Message) => {
   if (!message.channel.topic.includes('[nodejs-repl]')) return
   if (message.content.startsWith('//')) return
 
-  if (!repls.has(message.channel.id)) {
-    const repl = await new Repl().start()
+  const id = message.channel.id
+
+  if (!repls.has(id)) {
+    const repl = await new Repl(id).start()
     repl.onData(data => message.channel.send(data, { split: true }))
-    repl.onExit(() => repls.delete(message.channel.id))
-    repls.set(message.channel.id, repl)
+    repl.onExit(() => repls.delete(id))
+    repls.set(id, repl)
   }
 
-  repls.get(message.channel.id).exec(message.content)
+  repls.get(id).exec(message.content)
 }

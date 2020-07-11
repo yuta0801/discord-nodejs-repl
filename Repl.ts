@@ -3,8 +3,12 @@ import { execFile, spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { once } from 'events'
 
 export class Repl {
-  box = '0' // String(Date.now() % 1000)
+  box = String(Date.now() % 1000)
   node: ChildProcessWithoutNullStreams
+
+  constructor(box?: string) {
+    if (box) this.box = box.slice(-3)
+  }
 
   async start() {
     await exec('isolate', ['-b', this.box, '--cleanup'])
