@@ -2,7 +2,11 @@ import { promisify } from 'util'
 import { execFile, spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { once } from 'events'
 
-const REPL = `require('repl').start('')`
+const REPL = `repl.start({
+  prompt: '',
+  ignoreUndefined: true,
+  writer: output => util.inspect(output, { depth: 0 })
+})`
 
 export class Repl {
   box = String(Date.now() % 1000)
