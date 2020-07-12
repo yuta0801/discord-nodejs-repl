@@ -46,6 +46,11 @@ export class Repl {
     this.node.stdin.write(code + '\n')
   }
 
+  async upload(url: string) {
+    const path = `/var/local/lib/isolate/${this.box}/box`
+    await exec('wget', ['-P', path, url])
+  }
+
   onExit(callback: () => void) {
     once(this.node, 'close').then(callback)
   }
