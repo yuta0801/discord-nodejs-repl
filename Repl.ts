@@ -24,7 +24,6 @@ export class Repl {
       '--dir=dev=', '--dir=proc=', '--dir=tmp=',
       // '-m 262144', '-f 16384',
       '-b', this.box, '-p',
-      '--env=NODE_REPL_HISTORY=" "'
     ].join(' ')
     const isolate = (cmd: string) => `isolate ${options} --run -- ${cmd}`
     const command = 'cat | ' + isolate(`/usr/local/bin/node -e "${REPL}"`)
